@@ -1,45 +1,50 @@
 <?php
 
-// Ð¼Ð¾Ð´ÐµÐ»ÑŒ
-    Class Model_Task
+// ÍÏÄÅÌØ
+    Class Model_Project
     {
 
-        protected $table = "tasks";
+        protected $table = "project";
         public $id = null;
         public $name;
-        public $email;
-        public $text;
-        public $status;
-        public $edit=0;
+        public $budget;
+        public $customir_login;
+        public $customer_name;
 
         /**
-         * Model_Tasks constructor.
-         * @param string $table
+         * Model_Project constructor.
+         * @param null $id
+         * @param $name
+         * @param $budget
+         * @param $customir_login
+         * @param $customer_name
          */
-        public function __construct($name = null, $email = null, $text = null)
+        public function __construct($id=null, $name=null, $budget=null, $customir_login=null, $customer_name=null)
         {
+            $this->id = $id;
             $this->name = $name;
-            $this->email = $email;
-            $this->text = $text;
+            $this->budget = $budget;
+            $this->customir_login = $customir_login;
+            $this->customer_name = $customer_name;
         }
+
 
         public static function get($id)
         {
             global $mysqli;
 
-            if ($stmt = $mysqli->prepare("select `id`,`name`,`text`,`email`,`status`,`edit` from `tasks` where `id`=? limit 1")) {
+            if ($stmt = $mysqli->prepare("select * from `projects` where `id`=? limit 1")) {
                 $stmt->bind_param('s', $id);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 if ($result && $result->num_rows > 0) {
-                    $task = new Model_Task();
+                    $task = new Model_Project();
                     while ($row = $result->fetch_assoc()) {
-                        $task->id = $row["id"];
-                        $task->name = $row["name"];
-                        $task->email = $row["email"];
-                        $task->text = $row["text"];
-                        $task->status = $row["status"];
-                        $task->edit = $row["edit"];
+                       $task->id=intval($row['id']);
+                       $task->name=$row['name'];
+                       $task->budget=$row['budget'];
+                       $task->customir_login=$row['customir_login'];
+                        $task->customer_name=$row['customer_name'];
                     }
                     return $task;
                 }

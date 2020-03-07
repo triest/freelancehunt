@@ -1,5 +1,5 @@
 <?php
-include "/home/sakura1/domains/sakura.city/public_html/classes/router.php";
+include "/home/sakura2/domains/sakura2.city/public_html/classes/router.php";
     ini_set('display_errors', 1);
  
 // включим отображение всех ошибок

@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Тестовое задание</title>
+    <title>Тестовое задание2</title>
     <script src="formNumber.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta charset="utf-8">

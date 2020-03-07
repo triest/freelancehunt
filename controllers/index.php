@@ -4,13 +4,14 @@
     Class Controller_Index Extends Controller_Base
     {
 
-        public $on_page = 3;
+        public $on_page = 10;
         // шаблон
         public $layouts = "first_layouts";
 
         // экшен
         function index()
         {
+
             /*$model = new Model_Users();
             $userInfo = $model->getUser();
             $this->template->vars('userInfo', $userInfo);
@@ -36,7 +37,7 @@
                 $order = "desc";
             }
 
-            $sql = "select * from tasks order by $sort $order ";
+            $sql = "select * from projects order by $sort $order ";
             $sql .= "limit $this->on_page";
 
             if ($page != 1) {
@@ -46,19 +47,21 @@
 
             $result = $mysqli->query($sql);
 
-            $task_array = array();
+            $projects = array();
             while ($row = mysqli_fetch_assoc($result)) {
-                $task_array[] = Model_Task::get(intval($row['id']));
+                $projects[] = Model_Project::get(intval($row['id']));
             }
 
-            $sql = "select count(*) from tasks";
+            var_dump($projects);
+
+            $sql = "select count(*) from projects";
 
             $result = $mysqli->query($sql);
             $row = mysqli_fetch_assoc($result);
             $num_pages = intval(ceil($row["count(*)"] / $this->on_page));
 
             $this->template->vars('title', "Главная страница");
-            $this->template->vars('tasks', $task_array);
+            $this->template->vars('projects', $projects);
             $this->template->vars('num_pages', $num_pages);
             $this->template->vars('page', $page);
             $this->template->vars('sort', $sort);

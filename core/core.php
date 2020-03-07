@@ -1,5 +1,5 @@
 <?php
-include "/home/sakura1/domains/sakura.city/public_html/classes/registry.php";
+include "/home/sakura1/domains/sakura2.city/public_html/classes/registry.php";
 
 // Загрузка классов "на лету"
 function __autoload($className) {
