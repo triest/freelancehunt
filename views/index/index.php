@@ -27,6 +27,29 @@
             </tr>
             <?
         } ?>
-
         </tbody>
+    </table>
+
+
+    <div>
+        <b>Количество открытых проектов</b>
+        <? $skills = Model_Skill::getAll() ?>
+        <table class="table">
+            <tbody>
+            <? foreach ($skills as $item) { ?>
+                <tr>
+                    <td>
+                        <?= $item->name ?>
+                    </td>
+                    <td>
+                        <?= $item->getCountProject() ?>
+                    </td>
+                </tr>
+            <? } ?>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
 </div>

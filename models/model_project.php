@@ -19,8 +19,13 @@
          * @param $customir_login
          * @param $customer_name
          */
-        public function __construct($id=null, $name=null, $budget=null, $customir_login=null, $customer_name=null)
-        {
+        public function __construct(
+                $id = null,
+                $name = null,
+                $budget = null,
+                $customir_login = null,
+                $customer_name = null
+        ) {
             $this->id = $id;
             $this->name = $name;
             $this->budget = $budget;
@@ -40,11 +45,11 @@
                 if ($result && $result->num_rows > 0) {
                     $task = new Model_Project();
                     while ($row = $result->fetch_assoc()) {
-                       $task->id=intval($row['id']);
-                       $task->name=$row['name'];
-                       $task->budget=$row['budget'];
-                       $task->customir_login=$row['customir_login'];
-                        $task->customer_name=$row['customer_name'];
+                        $task->id = intval($row['id']);
+                        $task->name = $row['name'];
+                        $task->budget = $row['budget'];
+                        $task->customir_login = $row['customir_login'];
+                        $task->customer_name = $row['customer_name'];
                     }
                     return $task;
                 }
@@ -71,7 +76,7 @@
                 return false;
             } else {
 
-                return   $mysqli->insert_id;;
+                return $mysqli->insert_id;;
             }
         }
 
@@ -83,7 +88,8 @@
 
             global $mysqli;
             if ($stmt = $mysqli->prepare("UPDATE `tasks` SET `text` = ?,`name`=?,`email`=?,`status`=?,`edit`=? WHERE `tasks`.`id` = ?")) {
-                $stmt->bind_param('sssiii', $this->text, $this->name, $this->email, $this->status, $this->edit,$this->id);
+                $stmt->bind_param('sssiii', $this->text, $this->name, $this->email, $this->status, $this->edit,
+                        $this->id);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 return $result;
@@ -108,6 +114,26 @@
         public function getUser()
         {
             return array('id' => 1, 'name' => 'test_name');
+        }
+
+        public function getSkills()
+        {
+            global $mysqli;
+            $array_project = array();
+
+            if ($stmt = $mysqli->prepare("select * from `project_skill` where `project_id `=? limit 1")) {
+                $stmt->bind_param('i', $this->id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($result && $result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $item = Model_Skill::get(intval($row['skill_id']));
+                        $array_project[] = $item;
+                    }
+                }
+            } else {
+                return null;
+            }
         }
 
     }

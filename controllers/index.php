@@ -60,6 +60,10 @@
             $row = mysqli_fetch_assoc($result);
             $num_pages = intval(ceil($row["count(*)"] / $this->on_page));
 
+            /*выбираем все навыки*/
+
+
+
             $this->template->vars('title', "Главная страница");
             $this->template->vars('projects', $projects);
             $this->template->vars('num_pages', $num_pages);
